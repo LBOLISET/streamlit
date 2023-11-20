@@ -13,6 +13,15 @@ st.sidebar.header('Dataset Information')
 st.sidebar.text(f"Rows: {df.shape[0]}")
 st.sidebar.text(f"Columns: {df.shape[1]}")
 
+# Plotting the scatter plot
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(rotational_speed, tool_wear, alpha=0.5, color='b')
+
+# Adding labels and title
+ax.set_title('Impact of Rotational Speed on Tool Wear')
+ax.set_xlabel('Rotational Speed [rpm]')
+ax.set_ylabel('Tool Wear [min]')
+
 # Display a subset of the data using st.dataframe
 st.subheader('Subset of Data')
 subset_size = st.slider("Number of Rows in Subset", 1, df.shape[0], 10)
@@ -25,15 +34,6 @@ tool_wear = df['Tool wear [min]']
 
 # Scatter plot in the main section
 st.subheader('Scatter Plot: Impact of Rotational Speed on Tool Wear')
-
-# Plotting the scatter plot
-fig, ax = plt.subplots(figsize=(10, 6))
-ax.scatter(rotational_speed, tool_wear, alpha=0.5, color='b')
-
-# Adding labels and title
-ax.set_title('Impact of Rotational Speed on Tool Wear')
-ax.set_xlabel('Rotational Speed [rpm]')
-ax.set_ylabel('Tool Wear [min]')
 
 # Display the plot
 st.pyplot(fig)
