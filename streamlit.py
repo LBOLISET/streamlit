@@ -23,7 +23,7 @@ selected_array = selected_series.to_numpy()
 
 # Create a histogram with KDE plot using Seaborn
 fig, ax = plt.subplots()
-sns.histplot(data=selected_array, hue="Target", kde=True, ax=ax)
+sns.histplot(data=selected_array, kde=True, ax=ax)
 st.pyplot(fig)
 
 # Display data table
