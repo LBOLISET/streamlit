@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Assuming your dataset is stored in a CSV file named 'predictive_maintenance_data.csv'
-df = pd.read_csv('predictive_maintenance_data.csv')
+df = pd.read_csv('predictive_maintenance.csv')
 
 # Page Title
 st.title('Predictive Maintenance Data Analysis')
