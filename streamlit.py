@@ -1,40 +1,40 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
-# Load data
-df = pd.read_csv("predictive_maintenance.csv")
+# Assuming your dataset is stored in a CSV file named 'predictive_maintenance_data.csv'
+df = pd.read_csv('predictive_maintenance_data.csv')
 
-# Streamlit app
-st.title("Predictive Maintenance Data Analysis")
+# Page Title
+st.title('Predictive Maintenance Data Analysis')
 
-# Sidebar for user interaction, if needed
-selected_feature = st.sidebar.selectbox("Select a feature for analysis", df.columns)
+# Sidebar with dataset information
+st.sidebar.header('Dataset Information')
+st.sidebar.text(f"Rows: {df.shape[0]}")
+st.sidebar.text(f"Columns: {df.shape[1]}")
 
-# Main content
-st.subheader("Histogram with KDE Plot")
+# Extracting relevant columns
+rotational_speed = df['Rotational speed [rpm]']
+tool_wear = df['Tool wear [min]']
 
-# Extract the selected column as a Pandas Series
-selected_series = df[selected_feature]
+# Scatter plot in the main section
+st.subheader('Scatter Plot: Impact of Rotational Speed on Tool Wear')
 
-# Convert the series to a NumPy array
-selected_array = selected_series.to_numpy()
+# Plotting the scatter plot
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(rotational_speed, tool_wear, alpha=0.5, color='b')
 
-# Create a histogram with KDE plot using Matplotlib
-fig, ax = plt.subplots()
-ax.hist(selected_array, bins='auto', density=True, alpha=0.7, color='blue', label='Histogram')
-kde = st.gaussian_kde(selected_array)
-x_vals = np.linspace(selected_array.min(), selected_array.max(), 100)
-ax.plot(x_vals, kde(x_vals), color='red', label='KDE')
-ax.set_xlabel(selected_feature)
-ax.legend()
+# Adding labels and title
+ax.set_title('Impact of Rotational Speed on Tool Wear')
+ax.set_xlabel('Rotational Speed [rpm]')
+ax.set_ylabel('Tool Wear [min]')
 
 # Display the plot
 st.pyplot(fig)
 
-# Display data table
-st.subheader("Data Table")
-st.dataframe(df)
+# Optionally, you can display descriptive statistics or additional analysis below the plot
+# For example, you could calculate and display correlation
+correlation = df['Rotational speed [rpm]'].corr(df['Tool wear [min]'])
+st.text(f'Correlation between Rotational Speed and Tool Wear: {correlation}')
 
-# You can add more sections or interactive elements based on your needs
+# Save the script and run the Streamlit app
